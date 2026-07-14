@@ -1,0 +1,143 @@
+import java.util.Scanner;
+
+public class StudentManagementSystm {
+
+    static int[] ids = new int[100];
+    static String[] names = new String[100];
+    static int[] ages = new int[100];
+    static int count = 0;
+
+    public static void addStudent() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter Student ID: ");
+        ids[count] = input.nextInt();
+        input.nextLine();
+
+        System.out.print("Enter Student Name: ");
+        names[count] = input.nextLine();
+
+        System.out.print("Enter Student Age: ");
+        ages[count] = input.nextInt();
+
+        count++;
+
+        System.out.println("Student Added Successfully!");
+    }
+
+    public static void viewStudents() {
+
+        if (count == 0) {
+            System.out.println("No Students Available!");
+            return;
+        }
+
+        System.out.println("\nStudent Details");
+
+        for (int i = 0; i < count; i++) {
+            System.out.println("ID : " + ids[i]);
+            System.out.println("Name : " + names[i]);
+            System.out.println("Age : " + ages[i]);
+            System.out.println("-------------------");
+        }
+    }
+
+    public static void searchStudent() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter Student ID: ");
+        int searchId = input.nextInt();
+
+        boolean found = false;
+
+        for (int i = 0; i < count; i++) {
+            if (ids[i] == searchId) {
+                System.out.println("Student Found");
+                System.out.println("Name : " + names[i]);
+                System.out.println("Age : " + ages[i]);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Student Not Found!");
+        }
+    }
+
+    public static void deleteStudent() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter Student ID to Delete: ");
+        int deleteId = input.nextInt();
+
+        boolean found = false;
+
+        for (int i = 0; i < count; i++) {
+
+            if (ids[i] == deleteId) {
+
+                for (int j = i; j < count - 1; j++) {
+                    ids[j] = ids[j + 1];
+                    names[j] = names[j + 1];
+                    ages[j] = ages[j + 1];
+                }
+
+                count--;
+                found = true;
+                System.out.println("Student Deleted Successfully!");
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Student Not Found!");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        int choice;
+
+        do {
+
+            System.out.println("\n===== STUDENT MANAGEMENT SYSTEM =====");
+            System.out.println("1. Add Student");
+            System.out.println("2. View Students");
+            System.out.println("3. Search Student");
+            System.out.println("4. Delete Student");
+            System.out.println("5. Exit");
+            System.out.print("Enter Choice: ");
+
+            choice = input.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    addStudent();
+                    break;
+
+                case 2:
+                    viewStudents();
+                    break;
+
+                case 3:
+                    searchStudent();
+                    break;
+
+                case 4:
+                    deleteStudent();
+                    break;
+
+                case 5:
+                    System.out.println("Program Ended");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice");
+            }
+
+        } while (choice != 5);
+    }
+}
